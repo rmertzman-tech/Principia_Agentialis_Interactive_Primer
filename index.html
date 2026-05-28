@@ -1,412 +1,790 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Ethics Beyond Boundaries — Course App Suite</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --teal:#0f766e;--teal-dark:#0d5e57;--teal-mid:#14b8a6;--teal-light:#ccfbf1;
-  --amber:#f59e0b;--amber-dark:#92400e;--amber-light:#fef3c7;
-  --navy:#1a2744;--ink:#1f2937;--muted:#6b7280;
-  --border:#e5e7eb;--paper:#f9fafb;
-  --sky:#1e3a8a;--sky-light:#dbeafe;
-  --green:#166534;--green-light:#dcfce7;
-  --red:#dc2626;--red-light:#fee2e2;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Cormorant Garamond','Georgia',serif;background:linear-gradient(135deg,#0a1628 0%,#112240 50%,#0a1628 100%);min-height:100vh;color:var(--ink)}
-.wrap{max-width:1000px;margin:0 auto;padding:1rem 1rem 3rem}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Principia Agentialis: The Architecture of Agency</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,700;1,300&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-/* HEADER */
-.site-header{text-align:center;padding:2.5rem 1rem 2rem;color:white}
-.site-header .label{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.14em;color:rgba(20,184,166,.75);margin-bottom:.5rem}
-.site-header h1{font-size:2.2rem;font-weight:700;color:white;margin-bottom:.4rem;line-height:1.15}
-.site-header .sub{font-size:1rem;color:rgba(255,255,255,.48);font-style:italic;margin-bottom:1rem}
-.site-header .desc{max-width:640px;margin:0 auto;font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.7}
+    <!-- Chosen Palette: Deep Tech / Lab Dashboard (Slate-900 base, Cyan for Micro/Math, Emerald for Meso/Bio, Amber/Rose for Macro/Entropy) -->
+    
+    <!-- Application Structure Plan: 
+         Designed as a comprehensive, interactive "Scientific Primer" for academics and philosophers. 
+         - Intro: Sets the unified theory context.
+         - Sec 1: Dual-Aspect Bridge. A fundamental toggle defining the two-sided scientific object (1st person vs 3rd person).
+         - Sec 2: The Three Scales (Tabs). A non-linear explorer for the Macro (Flourishing), Meso (Agential Material), and Micro (Principia) layers.
+         - Sec 3: Applied Coherence. Side-by-side analysis mapping Roth and Maathai to the formal framework.
+         - Sec 4: The Edge of Chaos & Meta-Cognition. Interactive DOM-based simulation of Adam Smith's PRF network.
+         This architecture allows users to explore the dense theoretical stack interactively without losing the overarching thesis of coherence engineering. -->
+         
+    <!-- Visualization & Content Choices: 
+         - Dual-Aspect -> Goal: Compare/Inform -> HTML/CSS interactive toggle switching text and math formulas.
+         - Macro Scale -> Goal: Change -> Line Chart (Chart.js) -> Shows Entropy vs Agency. Interaction: BioBond application button.
+         - Meso Scale -> Goal: Compare -> Radar Chart (Chart.js) -> Compares UCP V5 biological states. Interaction: Radio buttons.
+         - Micro Scale -> Goal: Relationships -> Bubble Chart (Chart.js) -> Maps Degrees of Freedom against H_int. Interaction: Coercion Slider.
+         - Applied/OS2 -> Goal: Organize -> CSS Grid with hover states.
+         - PRF Simulation -> Goal: Organize/Change -> DOM node generator using CSS animations (NO SVG). -->
+         
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
-/* CHAPTER GROUPS */
-.chapter-group{margin-bottom:2rem}
-.group-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(20,184,166,.65);margin-bottom:.6rem;padding-left:.1rem}
-.app-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.75rem}
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0f172a; /* slate-900 */
+            color: #cbd5e1; /* slate-300 */
+        }
+        h1, h2, h3, h4, .serif { font-family: 'Merriweather', serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
 
-/* APP CARDS */
-.app-card{background:white;border-radius:.75rem;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s;box-shadow:0 2px 12px rgba(0,0,0,.15)}
-.app-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.25)}
-.app-card-head{padding:.9rem 1.1rem .7rem;display:flex;align-items:flex-start;gap:.7rem}
-.app-card-icon{font-size:1.5rem;line-height:1;flex-shrink:0;margin-top:.1rem}
-.app-card-title{font-size:1rem;font-weight:700;color:var(--navy);line-height:1.25;margin-bottom:.15rem}
-.app-card-type{font-family:'JetBrains Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
-.app-card-body{padding:0 1.1rem .9rem;flex:1}
-.app-card-desc{font-size:.82rem;color:var(--muted);line-height:1.6}
-.app-card-footer{padding:.55rem 1.1rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.app-card-tag{font-family:'JetBrains Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;padding:.18rem .5rem;border-radius:.25rem}
-.tag-case{background:var(--teal-light);color:var(--teal-dark)}
-.tag-companion{background:var(--sky-light);color:var(--sky)}
-.tag-simulation{background:var(--amber-light);color:var(--amber-dark)}
-.tag-reference{background:var(--paper);color:var(--muted);border:1px solid var(--border)}
-.tag-orientation{background:var(--green-light);color:var(--green)}
-.app-card-arrow{font-size:.9rem;color:var(--teal-mid)}
+        /* Custom Scrollbar for dashboard feel */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-/* ACCENT BORDERS BY CHAPTER */
-.ch-orient .app-card-head{border-top:3px solid #0284c7}
-.ch-1 .app-card-head{border-top:3px solid #7c3aed}
-.ch-2 .app-card-head{border-top:3px solid #dc2626}
-.ch-3 .app-card-head{border-top:3px solid #0f766e}
-.ch-4 .app-card-head{border-top:3px solid #ca8a04}
-.ch-5 .app-card-head{border-top:3px solid #166534}
-.ch-6 .app-card-head{border-top:3px solid #0369a1}
-.ch-7 .app-card-head{border-top:3px solid #9333ea}
-.ch-8 .app-card-head{border-top:3px solid #92400e}
-.ch-9 .app-card-head{border-top:3px solid #0891b2}
-.ch-10 .app-card-head{border-top:3px solid #4f46e5}
-.ch-interlude .app-card-head{border-top:3px solid #0d5e57}
-.ch-rustbelt .app-card-head{border-top:3px solid #b45309}
-.ch-prologue .app-card-head{border-top:3px solid #6d28d9}
-.ch-11 .app-card-head{border-top:3px solid #0f766e}
-.ch-12 .app-card-head{border-top:3px solid #dc2626}
-.ch-13 .app-card-head{border-top:3px solid #1d4ed8}
-.ch-14 .app-card-head{border-top:3px solid #7c3aed}
-.ch-tools .app-card-head{border-top:3px solid #374151}
+        /* UI Components */
+        .dash-card {
+            background: #1e293b; /* slate-800 */
+            border: 1px solid #334155; /* slate-700 */
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+        }
+        
+        .math-block {
+            background: #020617; /* slate-950 */
+            border-left: 3px solid #06b6d4; /* cyan-500 */
+            padding: 1rem;
+            border-radius: 0 0.375rem 0.375rem 0;
+            color: #67e8f9; /* cyan-200 */
+        }
 
-/* DIVIDER */
-.divider{height:1px;background:rgba(255,255,255,.07);margin:1.5rem 0}
+        /* Toggle Switch CSS */
+        .toggle-checkbox:checked { right: 0; border-color: #06b6d4; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #06b6d4; }
 
-/* PREDICTION CHAIN */
-.chain-bar{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:.65rem;padding:1rem 1.25rem;margin-bottom:1.5rem}
-.chain-bar h3{font-size:.75rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:rgba(20,184,166,.65);margin-bottom:.65rem}
-.chain-row{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
-.chain-node{font-family:'JetBrains Mono',monospace;font-size:.65rem;background:rgba(255,255,255,.07);color:rgba(255,255,255,.65);padding:.22rem .55rem;border-radius:.3rem;white-space:nowrap}
-.chain-arrow{color:rgba(20,184,166,.5);font-size:.85rem}
-</style>
+        /* Tab Buttons */
+        .tab-btn { transition: all 0.2s ease; border-bottom: 2px solid transparent; }
+        .tab-btn.active { color: #f8fafc; border-bottom: 2px solid #06b6d4; }
+
+        /* REQUIRED CHART CONTAINER STYLING */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 45vh;
+            min-height: 300px;
+            max-height: 450px;
+        }
+
+        /* PRF DOM Node Simulation */
+        .prf-network-area {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+            border: 1px dashed #334155;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .prf-node {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: #0f172a;
+            font-weight: bold;
+            font-size: 0.75rem;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+        .prf-node-standard {
+            width: 28px;
+            height: 28px;
+            background-color: #0ea5e9; /* sky-500 */
+            border: 2px solid #bae6fd;
+        }
+        .prf-node-impartial {
+            width: 48px;
+            height: 48px;
+            background-color: #f59e0b; /* amber-500 */
+            border: 3px solid #fde68a;
+            font-size: 0.85rem;
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+        }
+        @keyframes popIn {
+            to { opacity: 1; transform: scale(1) translate(-50%, -50%); }
+        }
+        /* Custom positioning hack for the popIn animation transform origin */
+        .prf-node { transform-origin: top left; } 
+    </style>
 </head>
-<body>
-<div class="wrap">
+<body class="antialiased selection:bg-cyan-900 selection:text-cyan-100">
 
-<div class="site-header">
-  <div class="label">Saint Petersburg College &middot; Ethics Institute</div>
-  <h1>Ethics Beyond Boundaries</h1>
-  <div class="sub">Interactive App Suite &middot; Dr. Robert Mertzman</div>
-  <div class="desc">A complete set of simulation apps, case explorers, and companion reading tools for the EBB course. Each app connects to the UCP simulation engine and stores journal predictions for the next chapter.</div>
-</div>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></div>
+                <span class="font-bold text-slate-100 mono tracking-tight text-lg hidden sm:block">Principia_Agentialis // LAB</span>
+                <span class="font-bold text-slate-100 mono tracking-tight text-lg sm:hidden">PA // LAB</span>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-medium text-slate-400 mono">
+                <a href="#dual-aspect" class="hover:text-cyan-400 transition">01. Dual-Aspect</a>
+                <a href="#scales" class="hover:text-cyan-400 transition">02. Multi-Scale</a>
+                <a href="#applied" class="hover:text-cyan-400 transition">03. Applied Coherence</a>
+                <a href="#edge" class="hover:text-cyan-400 transition">04. Edge of Chaos</a>
+            </div>
+        </div>
+    </nav>
 
-<!-- PREDICTION CHAIN -->
-<div class="chain-bar">
-  <h3>Prediction Chain &mdash; Journal Q5 flows chapter to chapter</h3>
-  <div class="chain-row">
-    <span class="chain-node">Orientation → orient_cq5</span>
-    <span class="chain-arrow">→</span>
-    <span class="chain-node">Ch2 → ch2_cq5</span>
-    <span class="chain-arrow">→</span>
-    <span class="chain-node">Ch3 → ch3_cq5</span>
-    <span class="chain-arrow">→</span>
-    <span class="chain-node">Ch4 → ch4_cq5</span>
-    <span class="chain-arrow">→</span>
-    <span class="chain-node">Ch5 → ch5_cq5</span>
-    <span class="chain-arrow">→</span>
-    <span class="chain-node">Ch6 → ch6_cq5</span>
-    <span class="chain-arrow">→</span>
-    <span class="chain-node">Ch7 → ch7_cq5</span>
-    <span class="chain-arrow">→</span>
-    <span class="chain-node">Ch8 → ch8_cq5</span>
-    <span class="chain-arrow">→</span>
-    <span class="chain-node">Rust Belt → rust_belt_cq5</span>
-  </div>
-</div>
+    <!-- Header / Intro -->
+    <header class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center border-b border-slate-800">
+        <span class="inline-block py-1 px-3 rounded text-cyan-400 bg-cyan-900/30 border border-cyan-800/50 text-xs font-bold tracking-wider uppercase mb-6 mono">
+            Interactive Scientific Primer
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 serif leading-tight">
+            The Architecture of Agency
+        </h1>
+        <p class="text-lg md:text-xl text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Synthesizing the mathematics of subjective physics, the morphogenetic mechanisms of biological substrates, and the thermodynamic realities of sociology to model human free will at the <span class="text-emerald-400">edge of chaos</span>.
+        </p>
+        <div class="flex justify-center gap-3 text-xs text-slate-500 font-mono flex-wrap">
+            <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700">[Source: Principia Agentialis]</span>
+            <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700">[Source: Agential Material]</span>
+            <span class="bg-slate-800 px-2 py-1 rounded border border-slate-700">[Source: Physics of Flourishing]</span>
+        </div>
+    </header>
 
-<!-- ORIENTATION -->
-<div class="chapter-group ch-orient">
-  <div class="group-label">Orientation</div>
-  <div class="app-grid">
-    <a class="app-card" href="ebb-orientation-app.html">
-      <div class="app-card-head"><div class="app-card-icon">🗺️</div><div><div class="app-card-title">Course Orientation</div><div class="app-card-type">Interactive Map</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The watershed model, PRF Peak Calculator, course arc, and Journal Q4 prediction for Chapter 2. Start here before Chapter 1.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-orientation">Orientation</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="day1-orientation.html">
-      <div class="app-card-head"><div class="app-card-icon">📋</div><div><div class="app-card-title">Day 1 Orientation</div><div class="app-card-type">First Class</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">First-day introduction to the course framework, PRF concept, and OS1/OS2 distinction.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-orientation">Day 1</span><span class="app-card-arrow">→</span></div>
-    </a>
-  </div>
-</div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-32">
 
-<!-- CHAPTER 1 -->
-<div class="chapter-group ch-1">
-  <div class="group-label">Chapter 1 &mdash; The PRF</div>
-  <div class="app-grid">
-    <a class="app-card" href="chapter1-lens-app.html">
-      <div class="app-card-head"><div class="app-card-icon">🔭</div><div><div class="app-card-title">Your Interpretive Lens</div><div class="app-card-type">Companion App</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Build your Phenomenological Reference Framework. How your PRF formed, what it makes visible, and what it makes hard to see.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-companion">Companion</span><span class="app-card-arrow">→</span></div>
-    </a>
-  </div>
-</div>
+        <!-- SECTION 1: Dual-Aspect Bridge -->
+        <section id="dual-aspect" class="scroll-mt-24">
+            <div class="max-w-3xl mb-10">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-3 mono flex items-center gap-2">
+                    <span>01.</span> The Dual-Aspect Phenomenological Bridge
+                </h2>
+                <p class="text-slate-400 leading-relaxed">
+                    Agency is a "two-sided scientific object." This section demonstrates Proof P5 from <em>Principia Agentialis</em>. It formally reconciles third-person physical measurement with first-person subjective experience. Use the toggle to shift the phenomenological framework.
+                </p>
+            </div>
 
-<!-- CHAPTER 2 -->
-<div class="chapter-group ch-2">
-  <div class="group-label">Chapter 2 &mdash; The Challenger Disaster</div>
-  <div class="app-grid">
-    <a class="app-card" href="challenger-case-explorer.html">
-      <div class="app-card-head"><div class="app-card-icon">🚀</div><div><div class="app-card-title">Challenger Case Explorer</div><div class="app-card-type">Case Explorer + Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Roger Boisjoly and the suppression gap. Eight tabs: Discovery through Aftermath. UCP Simulation: Config A (Thiokol) vs. Config B (protected channel). Clickable metric explanations.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-case">Case Explorer</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="chapter2-telescope-app.html">
-      <div class="app-card-head"><div class="app-card-icon">📡</div><div><div class="app-card-title">Chapter 2 Companion</div><div class="app-card-type">Companion App</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The suppression gap concept, institutional architecture, and the ethics of speaking truth to power.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-companion">Companion</span><span class="app-card-arrow">→</span></div>
-    </a>
-  </div>
-</div>
+            <div class="dash-card p-6 md:p-10 relative overflow-hidden">
+                <!-- Decorative background elements -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-900/20 rounded-full blur-3xl pointer-events-none"></div>
 
-<!-- CHAPTER 3 -->
-<div class="chapter-group ch-3">
-  <div class="group-label">Chapter 3 &mdash; Father Hanna</div>
-  <div class="app-grid">
-    <a class="app-card" href="hanna-case-explorer.html">
-      <div class="app-card-head"><div class="app-card-icon">⛪</div><div><div class="app-card-title">Hanna Case Explorer</div><div class="app-card-type">Case Explorer + Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Father Saad Sirop Hanna — maintaining identity under maximum institutional entropy. Identity Kernel, BioBond, and the limits of individual courage.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-case">Case Explorer</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="chapter3-commonwealth-app.html">
-      <div class="app-card-head"><div class="app-card-icon">🏛️</div><div><div class="app-card-title">Chapter 3 Companion</div><div class="app-card-type">Companion App</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Building commonwealth across difference. The conditions for ethical functioning under extreme constraint.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-companion">Companion</span><span class="app-card-arrow">→</span></div>
-    </a>
-  </div>
-</div>
+                <!-- Interactive Toggle -->
+                <div class="flex flex-col sm:flex-row items-center justify-center mb-12 gap-4">
+                    <span class="text-sm font-bold tracking-wider uppercase text-cyan-400 transition-colors duration-300" id="lbl-empirical">Third-Person (Empirical)</span>
+                    <div class="relative inline-block w-14 align-middle select-none transition duration-200 ease-in flex-shrink-0">
+                        <input type="checkbox" name="toggle" id="aspectToggle" class="toggle-checkbox absolute block w-7 h-7 rounded-full bg-white border-4 border-slate-600 appearance-none cursor-pointer transition-transform duration-300 ease-in-out z-10"/>
+                        <label for="aspectToggle" class="toggle-label block overflow-hidden h-7 rounded-full bg-slate-600 cursor-pointer transition-colors duration-300"></label>
+                    </div>
+                    <span class="text-sm font-bold tracking-wider uppercase text-slate-600 transition-colors duration-300" id="lbl-phenom">First-Person (Subjective)</span>
+                </div>
 
-<!-- CHAPTER 4 -->
-<div class="chapter-group ch-4">
-  <div class="group-label">Chapter 4 &mdash; Wangari Maathai</div>
-  <div class="app-grid">
-    <a class="app-card" href="maathai-case-explorer.html">
-      <div class="app-card-head"><div class="app-card-icon">🌳</div><div><div class="app-card-title">Maathai Case Explorer</div><div class="app-card-type">Case Explorer + Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Wangari Maathai and the Green Belt Movement. Coordination architecture, OS2 Bridge, and building institutions that outlast their founders.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-case">Case Explorer</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="chapter4-maathai-app.html">
-      <div class="app-card-head"><div class="app-card-icon">🌿</div><div><div class="app-card-title">Chapter 4 Companion</div><div class="app-card-type">Companion App</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Institutional design, capability-based coordination, and the ethics of building structures that distribute agency.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-companion">Companion</span><span class="app-card-arrow">→</span></div>
-    </a>
-  </div>
-</div>
+                <!-- Dynamic Content Display -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative z-10">
+                    <!-- Left: Metric -->
+                    <div class="space-y-4">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-700 pb-2">Primary Metric</div>
+                        <h3 class="text-3xl font-bold text-white pt-2 transition-all duration-300" id="da-title">Logical Depth</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed min-h-[4rem]" id="da-desc">
+                            The thermodynamic efficiency and computational history required to maintain a physical state against the pull of entropy. Measured objectively from the outside.
+                        </p>
+                        <div class="math-block mono text-sm" id="da-math">
+                            Measurement: ΔS_internal < ΔS_external
+                        </div>
+                    </div>
 
-<!-- CHAPTER 5 -->
-<div class="chapter-group ch-5">
-  <div class="group-label">Chapter 5 &mdash; Nelson Mandela</div>
-  <div class="app-grid">
-    <a class="app-card" href="mandela-case-explorer.html">
-      <div class="app-card-head"><div class="app-card-icon">⚖️</div><div><div class="app-card-title">Mandela Case Explorer</div><div class="app-card-type">Case Explorer + Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Nelson Mandela and the TRC. Three simulation runs: the TRC design, the fragmentation counterfactual, and the vulnerable population test.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-case">Case Explorer</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="chapter5-mandela-app.html">
-      <div class="app-card-head"><div class="app-card-icon">🕊️</div><div><div class="app-card-title">Chapter 5 Companion</div><div class="app-card-type">Companion App</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Truth, reconciliation, and institutional design across radical difference. The TRC as a coordination architecture problem.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-companion">Companion</span><span class="app-card-arrow">→</span></div>
-    </a>
-  </div>
-</div>
+                    <!-- Right: State -->
+                    <div class="space-y-4">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-700 pb-2">Phase State</div>
+                        <h3 class="text-2xl font-bold text-white pt-2 transition-all duration-300" id="da-state-title">Self-Organized Criticality</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed min-h-[4rem]" id="da-state-desc">
+                            The physical system is perfectly poised at the "edge of chaos," maximizing informational bandwidth without falling into disorder or freezing into rigidity.
+                        </p>
+                        <ul class="list-none space-y-3 text-sm text-cyan-300 mono mt-4 bg-slate-900/50 p-4 rounded border border-slate-700" id="da-list">
+                            <li class="flex items-center gap-2"><span class="text-emerald-500">■</span> Structural Integrity: Maintained</li>
+                            <li class="flex items-center gap-2"><span class="text-emerald-500">■</span> Entropy Dissipation: Optimized</li>
+                            <li class="flex items-center gap-2"><span class="text-emerald-500">■</span> Observation: Thermodynamic Efficiency</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- CHAPTER 6 -->
-<div class="chapter-group ch-6">
-  <div class="group-label">Chapter 6 &mdash; Tim Palmer</div>
-  <div class="app-grid">
-    <a class="app-card" href="palmer-case-explorer.html">
-      <div class="app-card-head"><div class="app-card-icon">🌀</div><div><div class="app-card-title">Palmer Case Explorer</div><div class="app-card-type">Case Explorer + Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Tim Palmer and ensemble forecasting. Single-model vs. ensemble architecture. The moral argument for honest uncertainty. Three simulation runs.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-case">Case Explorer</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="chapter6-companion.html">
-      <div class="app-card-head"><div class="app-card-icon">📊</div><div><div class="app-card-title">Chapter 6 Companion</div><div class="app-card-type">Companion App</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The primacy of doubt. Chaos, uncertainty, and the ethics of what forecasting institutions owe the people who depend on them.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-companion">Companion</span><span class="app-card-arrow">→</span></div>
-    </a>
-  </div>
-</div>
+        <!-- SECTION 2: The Multi-Scale Architecture (Tabs) -->
+        <section id="scales" class="scroll-mt-24">
+            <div class="max-w-3xl mb-10">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-3 mono flex items-center gap-2">
+                    <span>02.</span> The Multi-Scale Simulators
+                </h2>
+                <p class="text-slate-400 leading-relaxed">
+                    A unified theory requires continuity across scales. Navigate the tabs below to explore the interactive simulators for Societal Thermodynamics (Macro), Biological Material (Meso), and Formal Mathematics (Micro).
+                </p>
+            </div>
 
-<!-- CHAPTER 7 -->
-<div class="chapter-group ch-7">
-  <div class="group-label">Chapter 7 &mdash; Doyne Farmer</div>
-  <div class="app-grid">
-    <a class="app-card" href="farmer-case-explorer.html">
-      <div class="app-card-head"><div class="app-card-icon">🏭</div><div><div class="app-card-title">Farmer Case Explorer</div><div class="app-card-type">Case Explorer + Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Doyne Farmer and agent-based economics. Three runs: Representative Agent, Heterogeneous Agents, Rawlsian Test. The COVID prediction and what standard models missed.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-case">Case Explorer</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="chapter7-farmer-app.html">
-      <div class="app-card-head"><div class="app-card-icon">🔬</div><div><div class="app-card-title">Chapter 7 Companion</div><div class="app-card-type">Companion App</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The invisible people. Representative agent error, heterogeneous modeling, social block fields, and the Rawlsian test. Your field map exercise.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-companion">Companion</span><span class="app-card-arrow">→</span></div>
-    </a>
-  </div>
-</div>
+            <!-- Tab Headers -->
+            <div class="flex flex-wrap border-b border-slate-700 mb-8 gap-2 sm:gap-6" id="scaleTabs">
+                <button class="tab-btn active px-4 py-2 text-sm sm:text-base font-bold text-slate-400 mono" data-target="panel-macro">MACRO: Flourishing</button>
+                <button class="tab-btn px-4 py-2 text-sm sm:text-base font-bold text-slate-400 mono" data-target="panel-meso">MESO: Agential Material</button>
+                <button class="tab-btn px-4 py-2 text-sm sm:text-base font-bold text-slate-400 mono" data-target="panel-micro">MICRO: Principia</button>
+            </div>
 
-<!-- CHAPTER 8 -->
-<div class="chapter-group ch-8">
-  <div class="group-label">Chapter 8 &mdash; The Simulated History of Ethics</div>
-  <div class="app-grid">
-    <a class="app-card" href="ethical-theories-app.html">
-      <div class="app-card-head"><div class="app-card-icon">🏛️</div><div><div class="app-card-title">Ethical Theories App</div><div class="app-card-type">Nine Stations + Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">What were the traditions actually measuring? Nine stations from Socrates to Existentialism. Conditions Cascade visualization. Composite Run with all nine conditions. The Complex PRF.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-simulation">Simulation</span><span class="app-card-arrow">→</span></div>
-    </a>
-  </div>
-</div>
+            <!-- Tab Panels Container -->
+            <div class="relative min-h-[600px] lg:min-h-[500px]">
+                
+                <!-- MACRO PANEL -->
+                <div id="panel-macro" class="tab-panel absolute top-0 left-0 w-full opacity-100 transition-opacity duration-300">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-1 space-y-6">
+                            <div class="dash-card p-6">
+                                <h3 class="text-xl font-bold text-amber-500 serif mb-2">Societal Entropy</h3>
+                                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                                    High environmental entropy physically degrades the biological substrate required for prefrontal executive function. Moral failure is often a thermodynamic system failure.
+                                </p>
+                                <div class="bg-slate-900 p-4 rounded border border-slate-700">
+                                    <h4 class="text-sm font-bold text-slate-200 mb-2 uppercase tracking-wide">Intervention Control</h4>
+                                    <p class="text-xs text-slate-500 mb-4">Apply "BioBonds" (predictable institutional supports) to lower societal temperature.</p>
+                                    <button id="btn-macro-biobond" class="w-full py-2 bg-amber-600 hover:bg-amber-500 text-slate-900 font-bold rounded shadow transition-colors mono text-sm uppercase">
+                                        Deploy BioBonds
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-2">
+                            <div class="dash-card p-6 h-full flex flex-col">
+                                <h4 class="text-sm font-bold text-slate-300 mb-4 uppercase tracking-wider">Entropy vs. Executive Function</h4>
+                                <div class="chart-container flex-grow">
+                                    <canvas id="macroChart"></canvas>
+                                </div>
+                                <p class="text-xs text-center text-slate-500 mt-4" id="macro-caption">
+                                    Baseline: Rising entropy collapses executive function.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<!-- CHAPTER 9 -->
-<div class="chapter-group ch-9">
-  <div class="group-label">Chapter 9 &mdash; The World Values Map</div>
-  <div class="app-grid">
-    <a class="app-card" href="chapter9-wvm-app.html">
-      <div class="app-card-head"><div class="app-card-icon">&#127758;</div><div><div class="app-card-title">Where Are You Standing?</div><div class="app-card-type">Cultural PRF &middot; Cross-Cultural Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The World Values Map applied to the simulation. Two axes, five worldview categories, the thermodynamic logic of why values shift with conditions, IPS-WVM connection, and AMC forward pointer.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-simulation">Simulation</span><span class="app-card-arrow">&#8594;</span></div>
-    </a>
-  </div>
-</div>
+                <!-- MESO PANEL -->
+                <div id="panel-meso" class="tab-panel absolute top-0 left-0 w-full opacity-0 pointer-events-none transition-opacity duration-300">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-1 space-y-6">
+                            <div class="dash-card p-6">
+                                <h3 class="text-xl font-bold text-emerald-500 serif mb-2">UCP V5.02</h3>
+                                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                                    Biological matter consists of nested agents using bioelectricity and pattern memory to maintain target morphologies under stress.
+                                </p>
+                                <div class="bg-slate-900 p-4 rounded border border-slate-700">
+                                    <h4 class="text-sm font-bold text-slate-200 mb-3 uppercase tracking-wide">System State Selector</h4>
+                                    <div class="space-y-3">
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="radio" name="mesoState" value="0" class="w-4 h-4 text-emerald-500 bg-slate-800 border-slate-600 accent-emerald-500" checked>
+                                            <span class="text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">Baseline (Safe Plasticity)</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="radio" name="mesoState" value="1" class="w-4 h-4 text-amber-500 bg-slate-800 border-slate-600 accent-amber-500">
+                                            <span class="text-sm font-medium text-amber-500 group-hover:text-amber-400 transition-colors">Severe Perturbation (Stress)</span>
+                                        </label>
+                                        <label class="flex items-center space-x-3 cursor-pointer group">
+                                            <input type="radio" name="mesoState" value="2" class="w-4 h-4 text-rose-500 bg-slate-800 border-slate-600 accent-rose-500">
+                                            <span class="text-sm font-bold text-rose-500 group-hover:text-rose-400 transition-colors">Dark Coherence (False Recovery)</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-2">
+                            <div class="dash-card p-6 h-full flex flex-col">
+                                <h4 class="text-sm font-bold text-slate-300 mb-4 uppercase tracking-wider">Morphogenetic Variables</h4>
+                                <div class="chart-container flex-grow">
+                                    <canvas id="mesoChart"></canvas>
+                                </div>
+                                <p class="text-xs text-center text-slate-500 mt-4" id="meso-desc">
+                                    Baseline represents optimal agency: maintaining form while preserving robust recovery capacity.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<!-- CHAPTER 10 -->
-<div class="chapter-group ch-10">
-  <div class="group-label">Chapter 10 &mdash; The Social Contract</div>
-  <div class="app-grid">
-    <a class="app-card" href="chapter10-social-contract-app.html">
-      <div class="app-card-head"><div class="app-card-icon">&#x2696;&#xFE0F;</div><div><div class="app-card-title">Who Gave Them the Right?</div><div class="app-card-type">Three Architectures &middot; IPS Profiles &middot; Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Hobbes, Locke, and Rousseau as institutional architectures mapped to IPS parameters. Characteristic failure mode per architecture. CPG five criteria as IPS requirements. The Hybrid Citizen framework.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-simulation">Simulation</span><span class="app-card-arrow">&#8594;</span></div>
-    </a>
-  </div>
-</div>
+                <!-- MICRO PANEL -->
+                <div id="panel-micro" class="tab-panel absolute top-0 left-0 w-full opacity-0 pointer-events-none transition-opacity duration-300">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-1 space-y-6">
+                            <div class="dash-card p-6">
+                                <h3 class="text-xl font-bold text-cyan-500 serif mb-2">The Hamiltonian Field</h3>
+                                <p class="text-sm text-slate-400 mb-6 leading-relaxed">
+                                    The Institutional Interaction Hamiltonian ($H_{int}$) formally models how environmental fields physically dictate the possible coherent actions available to an agent.
+                                </p>
+                                <div class="bg-slate-900 p-4 rounded border border-slate-700">
+                                    <label for="hint-slider" class="block text-sm font-bold text-slate-200 mb-3 uppercase tracking-wide">
+                                        Institutional Coercion Level
+                                    </label>
+                                    <input type="range" id="hint-slider" min="0" max="100" value="10" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+                                    <div class="flex justify-between text-xs text-slate-500 mt-2 mono">
+                                        <span>Low</span>
+                                        <span id="hint-value" class="text-white font-bold text-sm">10</span>
+                                        <span>Max</span>
+                                    </div>
+                                    <div class="math-block mt-4 text-xs">
+                                        $dim(H_{AB}) = N$<br>
+                                        <span class="text-slate-500">// Bounding information exchange</span>
+                                        <div id="math-foreclosure" class="text-rose-400 mt-2 font-bold" style="display: none;">
+                                            => Dark Coherence Foreclosure
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-2">
+                            <div class="dash-card p-6 h-full flex flex-col">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider">Degrees of Freedom Topology</h4>
+                                    <span class="w-3 h-3 rounded-full bg-cyan-500 shadow-[0_0_8px_#06b6d4] transition-colors duration-300" id="hint-status"></span>
+                                </div>
+                                <div class="chart-container flex-grow">
+                                    <canvas id="hintChart"></canvas>
+                                </div>
+                                <p class="text-xs text-center text-slate-500 mt-4" id="hint-desc">
+                                    At low coercive states, the agent has maximum Degrees of Freedom. Higher-order cognition is possible.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<!-- INTERLUDE -->
-<div class="chapter-group ch-interlude">
-  <div class="group-label">Interlude &mdash; Ethics of the Framework</div>
-  <div class="app-grid">
-    <a class="app-card" href="interlude-ethics-framework-app.html">
-      <div class="app-card-head"><div class="app-card-icon">&#9651;</div><div><div class="app-card-title">Ethics of the Framework</div><div class="app-card-type">Agency Conditions Principle &middot; Bridge Reading</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The normative core stated in full: ACP, entropy-exporting institutions, Coherence-Preserving Governance, temporal commons, and the six-question diagnostic for the applied sequence ahead.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-reference">Reading</span><span class="app-card-arrow">&#8594;</span></div>
-    </a>
-  </div>
-</div>
+            </div>
+        </section>
 
-<!-- RUST BELT -->
-<div class="chapter-group ch-rustbelt">
-  <div class="group-label">Rust Belt Case Study &mdash; Nine Lenses Applied</div>
-  <div class="app-grid">
-    <a class="app-card" href="rust-belt-app.html">
-      <div class="app-card-head"><div class="app-card-icon">&#127981;</div><div><div class="app-card-title">Rust Belt &mdash; Nine Ethical Lenses</div><div class="app-card-type">Case Study + Three-Part Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The Rust Belt collapse examined through all nine ethical traditions simultaneously. Pre-collapse, collapse, and current state metrics. The synthesis tab shows what no single lens can see alone.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-case">Case Study</span><span class="app-card-arrow">&#8594;</span></div>
-    </a>
-  </div>
-</div>
+        <!-- SECTION 3: Applied Coherence -->
+        <section id="applied" class="scroll-mt-24">
+            <div class="max-w-3xl mb-10">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-3 mono flex items-center gap-2">
+                    <span>03.</span> Applied Coherence
+                </h2>
+                <p class="text-slate-400 leading-relaxed">
+                    Bridging formal physics to actionable public policy. Real-world systems that successfully manage environmental entropy provide the blueprint for the Adaptive Moral Commonwealth.
+                </p>
+            </div>
 
-<div class="divider"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Alvin Roth -->
+                <div class="dash-card p-8 group hover:border-cyan-500/50 transition-colors">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white serif mb-1">Alvin Roth</h3>
+                            <div class="text-sm text-cyan-400 font-mono">Market Design & Moral Economics</div>
+                        </div>
+                        <span class="text-xs font-bold px-2 py-1 bg-slate-900 border border-slate-700 rounded text-slate-400">Macro-Scale</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Unconstrained price mechanisms (pure competition) often generate high transactional entropy, violating biological and ethical limits resulting in "repugnance."
+                    </p>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        Roth's matching markets (e.g., kidney exchanges) function as mathematically engineered <strong>BioBonds</strong>. By removing chaotic price signals, he lowers entropy, creating a low-temperature environment where highly moral cooperative action becomes viable.
+                    </p>
+                    <div class="w-full h-1 bg-slate-700 rounded overflow-hidden">
+                        <div class="h-full bg-cyan-500 w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+                    </div>
+                    <div class="text-xs text-slate-500 mt-3 font-mono">Formal Link: Engineering $H_{int}$</div>
+                </div>
 
-<!-- APPLIED SEQUENCE -->
-<div class="chapter-group ch-prologue">
-  <div class="group-label">Prologue &mdash; The Pattern Beneath Ethics</div>
-  <div class="app-grid">
-    <a class="app-card" href="prologue-pattern-app.html">
-      <div class="app-card-head"><div class="app-card-icon">&#127381;</div><div><div class="app-card-title">The Pattern Beneath Ethics</div><div class="app-card-type">Scale-Free Laws &middot; Agential Hijacking &middot; Course Map</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The scale-invariant mechanism underlying every chapter: parasitic overwrite operating identically at biological, psychological, institutional, and civilizational scales. The mantis case. Course architecture revealed.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-companion">Prologue</span><span class="app-card-arrow">&#8594;</span></div>
-    </a>
-  </div>
-</div>
+                <!-- Wangari Maathai -->
+                <div class="dash-card p-8 group hover:border-emerald-500/50 transition-colors">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white serif mb-1">Wangari Maathai</h3>
+                            <div class="text-sm text-emerald-400 font-mono">The Green Belt Movement</div>
+                        </div>
+                        <span class="text-xs font-bold px-2 py-1 bg-slate-900 border border-slate-700 rounded text-slate-400">Meso-Scale</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        In contrast to rigid, coercive "OS1" top-down hierarchies, Maathai built distributed, generative networks of cooperation (OS2).
+                    </p>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        Organizing rural women to plant trees engaged in macro-scale morphogenesis. Restoring the ecological substrate provided predictable work that cooled community temperature, generating a massive <strong>Coherence Dividend</strong> of social trust and political power.
+                    </p>
+                    <div class="w-full h-1 bg-slate-700 rounded overflow-hidden">
+                        <div class="h-full bg-emerald-500 w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+                    </div>
+                    <div class="text-xs text-slate-500 mt-3 font-mono">Formal Link: OS2 Agential Material</div>
+                </div>
+            </div>
+        </section>
 
-<div class="chapter-group ch-11">
-  <div class="group-label">Chapter 11 &mdash; Economic Systems (Applied Sequence &middot; Movement 1)</div>
-  <div class="app-grid">
-    <a class="app-card" href="chapter11-economic-systems-app.html">
-      <div class="app-card-head"><div class="app-card-icon">&#127970;</div><div><div class="app-card-title">What the Economy Does to Coherent Agency</div><div class="app-card-type">IPS Diagnostic &middot; BioBond &middot; Peterson et al. 2025</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The False Choice thesis. Nine fairness dimensions as IPS parameters. Florida nursing home ownership archetypes (Peterson/AARP 2025 &amp; CMS data). PE acquisition trajectory 2019&ndash;2024. BioBond instruments. True Solvency Accounting. Three economic architecture simulation configs.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-simulation">Simulation + IPS</span><span class="app-card-arrow">&#8594;</span></div>
-    </a>
-  </div>
-</div>
+        <!-- SECTION 4: The Edge of Chaos (Adam Smith PRFs) -->
+        <section id="edge" class="scroll-mt-24">
+            <div class="max-w-3xl mb-10">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-3 mono flex items-center gap-2">
+                    <span>04.</span> The Edge of Chaos & Meta-Cognition
+                </h2>
+                <p class="text-slate-400 leading-relaxed">
+                    Free will is the phenomenological signature of a system operating at the "edge of chaos." Here, the system possesses the immense computational bandwidth required for meta-cognition: the ability to simulate counterfactual <strong>Phenomenological Reference Frames (PRFs)</strong>.
+                </p>
+            </div>
 
-<div class="chapter-group ch-12">
-  <div class="group-label">Chapter 12 &mdash; Governance Systems (Applied Sequence &middot; Movement 2)</div>
-  <div class="app-grid">
-    <a class="app-card" href="chapter12-governance-app.html">
-      <div class="app-card-head"><div class="app-card-icon">&#127981;</div><div><div class="app-card-title">Governance Systems and the Routing Quality Gap</div><div class="app-card-type">Four Configs &middot; Boisjoly T4 &middot; Type 1/Type 2 Failure</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Procedural vs. substantive legitimacy. Config A (Captured), B (Coherence-Preserving), C (Reform Transition), D (Boisjoly T4: agent FHRI 82, absorbed 67.7 pts). Type 1 vs. Type 2 routing quality failure distinction.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-simulation">Simulation</span><span class="app-card-arrow">&#8594;</span></div>
-    </a>
-  </div>
-</div>
+            <div class="dash-card overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-5">
+                    <div class="col-span-1 md:col-span-2 p-8 bg-slate-900 border-b md:border-b-0 md:border-r border-slate-700 flex flex-col justify-center">
+                        <h3 class="text-xl font-bold text-white mb-4 serif">Adam Smith's Impartial Spectator</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                            For an OS2 generative network to function without top-down coercion, individual agents must possess the bandwidth to model the health of the entire network.
+                        </p>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-8">
+                            This requires balancing at the edge of chaos to simulate an "impartial spectator"—an objective PRF. By doing so, agents actively construct the moral rules of their environment.
+                        </p>
+                        <button id="btn-add-prf" class="w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-slate-900 font-bold rounded shadow transition-colors mono text-sm flex items-center justify-center gap-2">
+                            <span>Simulate PRF</span>
+                            <span class="text-lg leading-none font-normal">+</span>
+                        </button>
+                    </div>
+                    
+                    <div class="col-span-1 md:col-span-3 p-6 flex flex-col justify-center relative">
+                        <div class="text-center absolute inset-0 flex flex-col items-center justify-center z-0 transition-opacity duration-300" id="prf-empty">
+                            <span class="text-slate-600 font-mono text-sm mb-2">System State: Entropic / Isolated</span>
+                            <span class="text-slate-500 text-xs">Inject computational bandwidth to simulate external perspectives.</span>
+                        </div>
+                        <div id="prf-container" class="prf-network-area relative z-10">
+                            <!-- Nodes added via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<div class="chapter-group ch-13">
-  <div class="group-label">Chapter 13 &mdash; Information Systems (Applied Sequence &middot; Movement 3)</div>
-  <div class="app-grid">
-    <a class="app-card" href="chapter13-infosystems-app.html">
-      <div class="app-card-head"><div class="app-card-icon">&#128225;</div><div><div class="app-card-title">Information Systems and the Second Filter</div><div class="app-card-type">Web of Acquisition &middot; &sigma;/&mu; Filter Asymmetry &middot; AI Ethics</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The filter upstream of governance. CSER Cambridge web of acquisition framework. IPS mechanism of filter asymmetry: &sigma; (morphic residue) and &mu; (incentive misalignment). Why 80% structural improvement is the honest result. Three simulation configs with IPS profiles.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-simulation">Simulation</span><span class="app-card-arrow">&#8594;</span></div>
-    </a>
-  </div>
-</div>
+    </main>
 
-<div class="chapter-group ch-14">
-  <div class="group-label">Chapter 14 &mdash; Existential Risk (Applied Sequence &middot; Movement 4)</div>
-  <div class="app-grid">
-    <a class="app-card" href="chapter14-existential-risk-app.html">
-      <div class="app-card-head"><div class="app-card-icon">&#127759;</div><div><div class="app-card-title">Existential Risk, Leverage, and the AMC</div><div class="app-card-type">IPS Field Profiles &middot; Iron Cage &middot; T1/T2 Counterfactuals</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Meadows leverage hierarchy. Iron Cage (high-&sigma;/&rho;) and Obsolescence Trap (high-&epsilon;/&mu;) failure modes. Four-institution IPS field profiles. Trust vector trajectory. T1 vs. T2 intervention types. Paris Agreement analysis. AMC as field architecture.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-simulation">Multi-Institutional Field</span><span class="app-card-arrow">&#8594;</span></div>
-    </a>
-  </div>
-</div>
+    <footer class="bg-[#020617] text-slate-500 py-10 text-center border-t border-slate-800">
+        <div class="max-w-3xl mx-auto px-4">
+            <p class="text-sm mb-3">
+                "Human agency is the rarest and most fragile achievement in an entropic universe."
+            </p>
+            <p class="text-xs font-mono tracking-widest text-slate-600">
+                LIVING ARCHITECTURE // V1.0 // 2026
+            </p>
+        </div>
+    </footer>
 
-<div class="divider"></div>
+    <!-- Application Logic -->
+    <script>
+        // --- GLOBAL SETUP ---
+        Chart.defaults.color = '#94a3b8'; // slate-400
+        Chart.defaults.font.family = "'JetBrains Mono', monospace";
+        
+        // Ensure chart tooltips handle array labels correctly (no .replace error)
+        Chart.defaults.plugins.tooltip.callbacks.title = function(context) { 
+            const label = context[0].label || '';
+            return Array.isArray(label) ? label.join(' ') : String(label).replace(/,/g, ' '); 
+        };
 
-<!-- REFERENCE TOOLS -->
-<div class="chapter-group ch-tools">
-  <div class="group-label">Reference Tools &amp; Labs</div>
-  <div class="app-grid">
-    <a class="app-card" href="ucp-metrics-reference.html">
-      <div class="app-card-head"><div class="app-card-icon">📐</div><div><div class="app-card-title">UCP Metrics Reference</div><div class="app-card-type">Technical Reference</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Complete technical documentation for every simulation metric: formulas, ranges, research grounding, and parameter interactions.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-reference">Reference</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="ucp-student-guide.html">
-      <div class="app-card-head"><div class="app-card-icon">📖</div><div><div class="app-card-title">Student Guide</div><div class="app-card-type">How to Use the Simulation</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Plain-language guide to running simulations, reading metrics, and connecting results to the course concepts.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-reference">Guide</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="metrics-calibration-lab.html">
-      <div class="app-card-head"><div class="app-card-icon">🧪</div><div><div class="app-card-title">Metrics Calibration Lab</div><div class="app-card-type">Interactive Lab</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Hands-on parameter exploration. Adjust worldview distributions and evidence architectures and watch metrics respond in real time.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-simulation">Lab</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="worldview-comparison.html">
-      <div class="app-card-head"><div class="app-card-icon">🌐</div><div><div class="app-card-title">Worldview Comparison</div><div class="app-card-type">Reference Tool</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Side-by-side comparison of the five worldview frameworks. What each sees, what each misses, and how they interact in the simulation.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-reference">Reference</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="trans-temporal-explorer.html">
-      <div class="app-card-head"><div class="app-card-icon">⏳</div><div><div class="app-card-title">Trans-Temporal Explorer</div><div class="app-card-type">Research Tool</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">Generational transmission of coordination capacity. How institutional patterns propagate across time and what degrades or improves them.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-reference">Research</span><span class="app-card-arrow">→</span></div>
-    </a>
-    <a class="app-card" href="cte-challenge.html">
-      <div class="app-card-head"><div class="app-card-icon">🏈</div><div><div class="app-card-title">CTE Challenge</div><div class="app-card-type">Case Study</div></div></div>
-      <div class="app-card-body"><div class="app-card-desc">The NFL's CTE crisis as a coordination failure case. Capability-based coordination in practice.</div></div>
-      <div class="app-card-footer"><span class="app-card-tag tag-case">Case Study</span><span class="app-card-arrow">→</span></div>
-    </a>
-  </div>
-</div>
+        // --- SECTION 1: DUAL-ASPECT TOGGLE ---
+        const aspectToggle = document.getElementById('aspectToggle');
+        const lblEmpirical = document.getElementById('lbl-empirical');
+        const lblPhenom = document.getElementById('lbl-phenom');
+        
+        const daData = {
+            empirical: {
+                title: "Logical Depth",
+                desc: "The thermodynamic efficiency and computational history required to maintain a physical state against the pull of entropy. Measured objectively from the outside.",
+                math: "Measurement: ΔS_internal < ΔS_external",
+                stateTitle: "Self-Organized Criticality",
+                stateDesc: "The physical system is perfectly poised at the 'edge of chaos,' maximizing informational bandwidth without falling into disorder or freezing into rigidity.",
+                list: `<li class="flex items-center gap-2"><span class="text-emerald-500">■</span> Structural Integrity: Maintained</li><li class="flex items-center gap-2"><span class="text-emerald-500">■</span> Entropy Dissipation: Optimized</li><li class="flex items-center gap-2"><span class="text-emerald-500">■</span> Observation: Thermodynamic Efficiency</li>`
+            },
+            phenom: {
+                title: "Active Inference",
+                desc: "The subjective effort to update internal generative models to minimize 'surprise' (information entropy) regarding the environment. The phenomenological feeling of choice.",
+                math: "Experience: argmin(Free Energy)",
+                stateTitle: "Subjective Coherence",
+                stateDesc: "The agent experiences the degrees of freedom necessary to simulate counterfactual realities and execute top-down meta-cognition.",
+                list: `<li class="flex items-center gap-2"><span class="text-cyan-500">■</span> Phenomenological State: Clarity</li><li class="flex items-center gap-2"><span class="text-cyan-500">■</span> Choice Capacity: Maximized</li><li class="flex items-center gap-2"><span class="text-cyan-500">■</span> Observation: Subjective Freedom</li>`
+            }
+        };
 
-<div style="text-align:center;padding:2rem 0 1rem;font-family:'JetBrains Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.2)">
-  Ethics Beyond Boundaries &middot; Saint Petersburg College &middot; Ethics Institute &middot; &copy; 2026
-</div>
+        function updateDualAspect(isPhenom) {
+            const data = isPhenom ? daData.phenom : daData.empirical;
+            
+            lblPhenom.className = `text-sm font-bold tracking-wider uppercase transition-colors duration-300 ${isPhenom ? 'text-cyan-400' : 'text-slate-600'}`;
+            lblEmpirical.className = `text-sm font-bold tracking-wider uppercase transition-colors duration-300 ${!isPhenom ? 'text-cyan-400' : 'text-slate-600'}`;
 
-</div>
+            document.getElementById('da-title').textContent = data.title;
+            document.getElementById('da-desc').textContent = data.desc;
+            document.getElementById('da-math').textContent = data.math;
+            document.getElementById('da-state-title').textContent = data.stateTitle;
+            document.getElementById('da-state-desc').textContent = data.stateDesc;
+            document.getElementById('da-list').innerHTML = data.list;
+        }
+
+        aspectToggle.addEventListener('change', (e) => updateDualAspect(e.target.checked));
+
+        // --- SECTION 2: TABS LOGIC ---
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.tab-panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('active', 'text-f8fafc', 'border-cyan-500');
+                    t.classList.add('text-slate-400', 'border-transparent');
+                });
+                panels.forEach(p => {
+                    p.classList.remove('opacity-100');
+                    p.classList.add('opacity-0', 'pointer-events-none');
+                });
+
+                tab.classList.remove('text-slate-400', 'border-transparent');
+                tab.classList.add('active', 'text-f8fafc', 'border-cyan-500');
+                
+                const targetPanel = document.getElementById(tab.dataset.target);
+                targetPanel.classList.remove('opacity-0', 'pointer-events-none');
+                targetPanel.classList.add('opacity-100');
+            });
+        });
+
+        // --- TAB: MACRO CHART ---
+        const ctxMacro = document.getElementById('macroChart').getContext('2d');
+        let isBioBondActive = false;
+        
+        const macroLabels = ['t0', 't1', 't2', 't3', 't4', 't5', 't6'];
+        const baseEntropy = [40, 55, 70, 85, 90, 95, 98];
+        const baseAgency =  [80, 75, 60, 40, 25, 15, 10];
+        const intEntropy =  [40, 55, 60, 50, 40, 35, 30];
+        const intAgency =   [80, 75, 72, 85, 92, 95, 98];
+
+        let macroChart = new Chart(ctxMacro, {
+            type: 'line',
+            data: {
+                labels: macroLabels,
+                datasets: [
+                    {
+                        label: 'Entropy (Stress)',
+                        data: baseEntropy,
+                        borderColor: '#e11d48', // rose-600
+                        backgroundColor: 'rgba(225, 29, 72, 0.1)',
+                        borderWidth: 3, tension: 0.4, fill: true
+                    },
+                    {
+                        label: 'Executive Function',
+                        data: baseAgency,
+                        borderColor: '#0ea5e9', // sky-500
+                        backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                        borderWidth: 3, tension: 0.4, fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } },
+                scales: {
+                    y: { min: 0, max: 100, grid: { color: '#334155' } },
+                    x: { grid: { color: '#334155' } }
+                }
+            }
+        });
+
+        document.getElementById('btn-macro-biobond').addEventListener('click', function() {
+            isBioBondActive = !isBioBondActive;
+            const caption = document.getElementById('macro-caption');
+            
+            if (isBioBondActive) {
+                this.textContent = "Remove BioBonds";
+                this.className = "w-full py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded shadow transition-colors mono text-sm uppercase";
+                macroChart.data.datasets[0].data = intEntropy;
+                macroChart.data.datasets[1].data = intAgency;
+                caption.innerHTML = "Intervention: BioBonds reduce Entropy, unlocking the <span class='text-emerald-400 font-bold'>Coherence Dividend</span>.";
+            } else {
+                this.textContent = "Deploy BioBonds";
+                this.className = "w-full py-2 bg-amber-600 hover:bg-amber-500 text-slate-900 font-bold rounded shadow transition-colors mono text-sm uppercase";
+                macroChart.data.datasets[0].data = baseEntropy;
+                macroChart.data.datasets[1].data = baseAgency;
+                caption.innerHTML = "Baseline: Rising entropy collapses executive function.";
+            }
+            macroChart.update();
+        });
+
+        // --- TAB: MESO CHART ---
+        const ctxMeso = document.getElementById('mesoChart').getContext('2d');
+        const mesoData = {
+            0: { data: [90, 85, 95, 90, 60], color: 'rgba(16, 185, 129, 0.5)', border: '#10b981', desc: "Baseline represents optimal agency: maintaining form while preserving robust recovery capacity." },
+            1: { data: [40, 50, 30, 35, 95], color: 'rgba(245, 158, 11, 0.5)', border: '#f59e0b', desc: "Severe Perturbation forces extreme plasticity. Stability collapses; the system is highly vulnerable." },
+            2: { data: [85, 10, 5, 80, 5], color: 'rgba(225, 29, 72, 0.5)', border: '#e11d48', desc: "Dark Coherence: Apparent stability is regained, but at the total cost of future adaptation. Therapeutic failure." }
+        };
+
+        let mesoChart = new Chart(ctxMeso, {
+            type: 'radar',
+            data: {
+                labels: [['Bioelectric', 'Integrity'], ['Pattern', 'Memory'], ['Recovery', 'Capacity'], ['Morphological', 'Stability'], ['Safe', 'Plasticity']],
+                datasets: [{
+                    label: 'State Vector',
+                    data: mesoData[0].data,
+                    backgroundColor: mesoData[0].color,
+                    borderColor: mesoData[0].border,
+                    pointBackgroundColor: mesoData[0].border,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#334155' },
+                        grid: { color: '#334155' },
+                        pointLabels: { color: '#cbd5e1', font: { size: 11, family: "'JetBrains Mono', monospace" } },
+                        suggestedMin: 0, suggestedMax: 100, ticks: { display: false }
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        document.querySelectorAll('input[name="mesoState"]').forEach(elem => {
+            elem.addEventListener('change', function(e) {
+                const state = mesoData[e.target.value];
+                mesoChart.data.datasets[0].data = state.data;
+                mesoChart.data.datasets[0].backgroundColor = state.color;
+                mesoChart.data.datasets[0].borderColor = state.border;
+                mesoChart.data.datasets[0].pointBackgroundColor = state.border;
+                mesoChart.update();
+                document.getElementById('meso-desc').textContent = state.desc;
+            });
+        });
+
+        // --- TAB: MICRO CHART (H_int) ---
+        const ctxHint = document.getElementById('hintChart').getContext('2d');
+        const hintSlider = document.getElementById('hint-slider');
+        
+        const baseActions = [
+            { x: 20, y: 30, baseR: 15, label: 'Moral Deliberation' },
+            { x: 40, y: 60, baseR: 20, label: 'Long-term Planning' },
+            { x: 60, y: 40, baseR: 25, label: 'Empathic Modeling' },
+            { x: 80, y: 70, baseR: 18, label: 'Creative Problem Solving' },
+            { x: 30, y: 80, baseR: 12, label: 'Delayed Gratification' },
+            { x: 70, y: 20, baseR: 15, label: 'OS2 Networking' },
+            { x: 50, y: 10, baseR: 8, label: 'Survival Reflex', isSurvival: true } 
+        ];
+
+        function getHintData(coercion) {
+            return baseActions.map(a => {
+                if (a.isSurvival) return { x: a.x, y: a.y, r: a.baseR + (coercion * 0.1), label: a.label };
+                let r = a.baseR - (coercion * 0.25);
+                return { x: a.x, y: a.y, r: Math.max(0, r), label: a.label };
+            });
+        }
+
+        let hintChart = new Chart(ctxHint, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label: 'Action Space',
+                    data: getHintData(10),
+                    backgroundColor: 'rgba(6, 182, 212, 0.6)', borderColor: '#06b6d4', borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { x: { display: false, min: 0, max: 100 }, y: { display: false, min: 0, max: 100 } },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => ctx.raw.r === 0 ? null : `${ctx.raw.label} (Area: ${Math.round(ctx.raw.r)})`
+                        }
+                    }
+                }
+            }
+        });
+
+        hintSlider.addEventListener('input', function() {
+            const val = parseInt(this.value);
+            document.getElementById('hint-value').textContent = val;
+            hintChart.data.datasets[0].data = getHintData(val);
+            
+            const txt = document.getElementById('hint-desc');
+            const math = document.getElementById('math-foreclosure');
+            const dot = document.getElementById('hint-status');
+
+            if (val < 40) {
+                hintChart.data.datasets[0].backgroundColor = 'rgba(6, 182, 212, 0.6)'; // cyan
+                hintChart.data.datasets[0].borderColor = '#06b6d4';
+                dot.className = "w-3 h-3 rounded-full bg-cyan-500 shadow-[0_0_8px_#06b6d4] transition-colors duration-300";
+                txt.textContent = "At low coercive states, the agent has maximum Degrees of Freedom. Higher-order cognition is possible.";
+                math.style.display = 'none';
+            } else if (val < 80) {
+                hintChart.data.datasets[0].backgroundColor = 'rgba(245, 158, 11, 0.6)'; // amber
+                hintChart.data.datasets[0].borderColor = '#f59e0b';
+                dot.className = "w-3 h-3 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b] transition-colors duration-300";
+                txt.textContent = "As institutional entropy rises, higher-order computational states are thermodynamically suppressed.";
+                math.style.display = 'none';
+            } else {
+                hintChart.data.datasets[0].backgroundColor = 'rgba(225, 29, 72, 0.6)'; // rose
+                hintChart.data.datasets[0].borderColor = '#e11d48';
+                dot.className = "w-3 h-3 rounded-full bg-rose-600 shadow-[0_0_8px_#e11d48] transition-colors duration-300";
+                txt.innerHTML = "<span class='text-rose-400 font-bold'>CRITICALITY LOST.</span> Action space foreclosed. Agent retreats to survival reflex.";
+                math.style.display = 'block';
+            }
+            hintChart.update();
+        });
+
+        // --- SECTION 4: EDGE OF CHAOS (Smith PRFs) ---
+        const btnPrf = document.getElementById('btn-add-prf');
+        const prfContainer = document.getElementById('prf-container');
+        const prfEmpty = document.getElementById('prf-empty');
+        let nodeCount = 0;
+
+        btnPrf.addEventListener('click', () => {
+            if (nodeCount === 0) {
+                prfEmpty.style.opacity = '0';
+                setTimeout(() => prfEmpty.style.display = 'none', 300);
+            }
+
+            const node = document.createElement('div');
+            
+            if (nodeCount === 4) {
+                // The 5th node is the Impartial Spectator
+                node.className = 'prf-node prf-node-impartial';
+                node.innerHTML = 'PRF<br>SYNC';
+                node.style.left = '50%';
+                node.style.top = '50%';
+                
+                btnPrf.innerHTML = "Network Coherence Achieved";
+                btnPrf.classList.replace('bg-cyan-600', 'bg-slate-700');
+                btnPrf.classList.replace('text-slate-900', 'text-slate-400');
+                btnPrf.classList.replace('hover:bg-cyan-500', 'hover:bg-slate-700');
+                btnPrf.disabled = true;
+                btnPrf.style.cursor = 'not-allowed';
+            } else {
+                // Standard counterfactual PRF simulation nodes
+                node.className = 'prf-node prf-node-standard';
+                node.textContent = `N${nodeCount + 1}`;
+                
+                // Distribute in a ring around the center
+                const angle = (nodeCount / 4) * Math.PI * 2 + (Math.PI / 4); // Offset angles
+                const radius = 80;
+                const x = 50 + (Math.cos(angle) * radius / (prfContainer.offsetWidth / 2)) * 100;
+                const y = 50 + (Math.sin(angle) * radius / (prfContainer.offsetHeight / 2)) * 100;
+                
+                node.style.left = `${x}%`;
+                node.style.top = `${y}%`;
+            }
+
+            prfContainer.appendChild(node);
+            nodeCount++;
+        });
+
+    </script>
 </body>
 </html>
